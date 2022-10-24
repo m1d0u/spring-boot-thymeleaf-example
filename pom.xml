@@ -16,7 +16,8 @@
     <inceptionYear>2019</inceptionYear>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>1.9</java.version>
+        
     </properties>
 
     <dependencies>
@@ -34,15 +35,17 @@
         </dependency>
 
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+        
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -57,55 +60,33 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <inherited>false</inherited>
-                <groupId>com.google.code.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <version>1.4.0</version>
-                <configuration>
-                    <header>NOTICE</header>
-                    <failIfMissing>true</failIfMissing>
-                    <aggregate>true</aggregate>
-                    <properties>
-                        <owner>Dariawan</owner>
-                        <year>${project.inceptionYear}</year>
-                        <email>hello@dariawan.com</email>
-                    </properties>
-                    <excludes>
-                        <exclude>mvnw.cmd</exclude>                        
-                        <exclude>.mvn/**</exclude>
-                        <exclude>.hg/**</exclude>
-                        <exclude>.git/**</exclude>
-                        <exclude>.gitignore/**</exclude>
-                        <exclude>jenkins-jobs-configuration/**</exclude>
-                        <exclude>LICENSE</exclude>
-                        <exclude>NOTICE</exclude>
-                        <exclude>README.md</exclude>
-                        <exclude>**/Servers/**</exclude>
-                        <exclude>**/src/test/resources/**</exclude>
-                        <exclude>**/src/test/data/**</exclude>
-                        <exclude>.git/**</exclude>
-                        <exclude>**/.metadata/**</exclude>
-                        <exclude>**/.idea/**</exclude>
-                        <exclude>**/logs/**</exclude>
-                        <exclude>**/js/**</exclude>
-                        <exclude>**/css/**</exclude>
-                        <exclude>**/src/main/resources/**</exclude>
-                        <exclude>**/src/sql/**</exclude>
-                        <exclude>**/nb-configuration.xml</exclude>
-                        <exclude>**/nbactions.xml</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>check-headers</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <!--<goal>check</goal>-->
-                            <goal>format</goal>
-                            <!--<goal>remove</goal>-->
-                        </goals>
-                    </execution>
-                </executions>
+            	<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+    			<source>16</source>
+			    <target>16</target>
+			    <fork>true</fork>
+			    <compilerArgs>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+			        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED</arg>
+			    </compilerArgs>
+			    <annotationProcessorPaths>
+			        <path>
+			            <groupId>org.projectlombok</groupId>
+			            <artifactId>lombok</artifactId>
+			            <version>1.18.16</version>
+			        </path>
+			    </annotationProcessorPaths>
+			</configuration>
             </plugin>
         </plugins>
     </build>
